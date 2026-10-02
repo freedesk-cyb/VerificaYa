@@ -472,7 +472,7 @@ function PanelNvidia({ nvidia, error }) {
   );
 }
 
-// Panel 5: xKiro — Razonamiento Lógico Profundo (MiniMax M3)
+// Panel 5: xKiro — Razonamiento Lógico Profundo (Qwen 3.8 Max)
 function PanelXKiro({ xkiro, error }) {
   if (!xkiro) return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5">
@@ -481,7 +481,7 @@ function PanelXKiro({ xkiro, error }) {
           <Zap className="w-5 h-5 text-purple-600" />
         </div>
         <div>
-          <div className="text-sm font-bold text-slate-700">Motor xKiro (MiniMax M3) — No disponible</div>
+          <div className="text-sm font-bold text-slate-700">Motor xKiro (Qwen 3.8 Max) — No disponible</div>
           <div className="text-xs text-slate-500 mt-0.5">{error || 'El motor de razonamiento xKiro no pudo procesar este análisis.'}</div>
         </div>
       </div>
@@ -502,11 +502,11 @@ function PanelXKiro({ xkiro, error }) {
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-sm font-black text-slate-900">Razonamiento xKiro</span>
                 <span className="px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 text-[10px] font-extrabold uppercase tracking-wider border border-purple-200">
-                  MiniMax M3
+Qwen 3.8 Max
                 </span>
                 <NivelBadge nivel={xkiro.nivel_riesgo} />
               </div>
-              <div className="text-xs text-slate-500 mt-0.5 font-mono">{xkiro.modelo_usado || 'minimax/minimax-m3:free'}</div>
+              <div className="text-xs text-slate-500 mt-0.5 font-mono">{xkiro.modelo_usado || 'qwen/qwen3.8-max:free'}</div>
             </div>
           </div>
           <RiskGauge porcentaje={xkiro.porcentaje} nivel={xkiro.nivel_riesgo} />
@@ -765,7 +765,7 @@ export default function ResultadoAnalisis({ resultado, mensajeAnalizado, onReset
       '== MISTRAL AI (Auditoria de Seguridad) ==\n' +
       'Nivel: ' + (mistral?.nivel_riesgo || 'N/A') + ' (' + (mistral?.porcentaje || 0) + '%)\n' +
       'Evaluacion: ' + (mistral?.explicacion || 'N/A') + '\n\n' +
-      '== XKIRO (Razonamiento MiniMax M3) ==\n' +
+      '== XKIRO (Razonamiento Qwen 3.8 Max) ==\n' +
       'Nivel: ' + (xkiro?.nivel_riesgo || 'N/A') + ' (' + (xkiro?.porcentaje || 0) + '%)\n' +
       'Razonamiento: ' + (xkiro?.razonamiento_logico || xkiro?.explicacion || 'N/A') + '\n\n' +
       '== OPENCODE (Dictamen Conciso) ==\n' +
@@ -844,7 +844,7 @@ export default function ResultadoAnalisis({ resultado, mensajeAnalizado, onReset
             )}
             {resultado.xkiro && (
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 border border-purple-200">
-                <Zap className="w-3 h-3 text-purple-600" /> xKiro MiniMax M3
+                <Zap className="w-3 h-3 text-purple-600" /> xKiro Qwen 3.8 Max
               </span>
             )}
             {resultado.opencode && (
@@ -886,7 +886,7 @@ export default function ResultadoAnalisis({ resultado, mensajeAnalizado, onReset
       {/* Panel 2: Mistral AI — Auditoria de seguridad */}
       <PanelMistral mistral={resultado.mistral} error={resultado.errores_ia?.mistral} />
 
-      {/* Panel 3: xKiro — Razonamiento Lógico Profundo (MiniMax M3) */}
+      {/* Panel 3: xKiro — Razonamiento Lógico Profundo (Qwen 3.8 Max) */}
       <PanelXKiro xkiro={resultado.xkiro} error={resultado.errores_ia?.xkiro} />
 
       {/* Panel 4: OpenCode — Dictamen conciso */}

@@ -1,5 +1,5 @@
 /**
- * Integración con xKiro AI Gateway (modelo MiniMax M3 Free).
+ * Integración con xKiro AI Gateway (modelo Qwen 3.8 Max en tier gratuito).
  * Endpoint OpenAI-compatible con alta capacidad de razonamiento lógico.
  */
 
@@ -9,15 +9,17 @@ import { sanitizarParaPrompt, ANCLA_ANTI_INYECCION } from './seguridad';
 const XKIRO_API_KEY = process.env.XKIRO_API_KEY || '';
 const BASE_URL = process.env.XKIRO_BASE_URL || 'https://api.xkiro.com/v1';
 
-// Modelo MiniMax M3 en tier gratuito de xKiro
+// Modelos de razonamiento disponibles en el plan gratuito de xKiro.
+// MiniMax M3 quedó fuera: 'minimax/minimax-m3:free' devuelve 404 y la variante
+// de pago devuelve 403 en cuentas Free. Ver /v1/models para la lista vigente.
 const MODELOS = [
-  'minimax/minimax-m3:free',
-  'minimax/minimax-m2.7:free',
-  'minimax/minimax-m2.5:free',
+  'qwen/qwen3.8-max:free',
+  'qwen/qwen3.7-max:free',
+  'qwen/qwen3.6-27b:free',
 ];
 
 /**
- * Prompt del sistema para MiniMax M3: Razonamiento lógico y análisis forense antifraude
+ * Prompt del sistema para Qwen 3.8 Max: Razonamiento lógico y análisis forense antifraude
  */
 export const SYSTEM_PROMPT_XKIRO = `Eres un auditor de ciberseguridad y motor de razonamiento antifraude de élite especializado en Perú (BCP, Interbank, BBVA, Yape, Plin, estafas "gota a gota", falsas ofertas laborales en TikTok/Telegram, suplantación de SUNAT, Reniec y familiares).
 
@@ -44,7 +46,7 @@ CRITERIOS:
 - No incluyas ningún texto fuera del bloque JSON.`;
 
 /**
- * Analiza un mensaje utilizando xKiro (MiniMax M3)
+ * Analiza un mensaje utilizando xKiro (Qwen 3.8 Max)
  * @param {string} mensaje
  * @param {object|null} telemetriaVT
  * @param {object|null} telemetriaHA
@@ -112,7 +114,7 @@ export async function analizarMensajeConXKiro(mensaje, telemetriaVT = null, tele
         const finish = data.choices?.[0]?.finish_reason;
         throw new Error(finish === 'length'
           ? 'xKiro truncó la respuesta por límite de tokens.'
-          : 'No se pudo parsear el JSON de xKiro (MiniMax M3).');
+          : 'No se pudo parsear el JSON de xKiro (Qwen 3.8 Max).');
       }
 
       const nivelValido = ['Alto', 'Medio', 'Bajo'].includes(parsed.nivel_riesgo)
@@ -129,7 +131,7 @@ export async function analizarMensajeConXKiro(mensaje, telemetriaVT = null, tele
         categoria: categoriaValida,
         senales: Array.isArray(parsed.senales) && parsed.senales.length > 0
           ? parsed.senales
-          : ['Indicios sospechosos detectados por MiniMax M3'],
+          : ['Indicios sospechosos detectados por Qwen 3.8 Max'],
         razonamiento_logico: parsed.razonamiento_logico || null,
         explicacion: parsed.explicacion || 'Se detectaron patrones de riesgo mediante razonamiento analítico.',
         recomendacion: parsed.recomendacion || 'No compartas datos confidenciales ni realices transferencias.',
@@ -142,5 +144,5 @@ export async function analizarMensajeConXKiro(mensaje, telemetriaVT = null, tele
     }
   }
 
-  throw new Error(`xKiro MiniMax M3: ${ultimoError?.message || 'Fallo de conexión'}`);
+  throw new Error(`xKiro Qwen 3.8 Max: ${ultimoError?.message || 'Fallo de conexión'}`);
 }

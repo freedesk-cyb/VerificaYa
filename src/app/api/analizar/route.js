@@ -105,14 +105,14 @@ export async function POST(request) {
       }
     }
 
-    // 2. Ejecutar Groq, Mistral, OpenCode, NVIDIA y xKiro (MiniMax M3) EN PARALELO INMEDIATO
+    // 2. Ejecutar Groq, Mistral, OpenCode, NVIDIA y xKiro (Qwen 3.8 Max) EN PARALELO INMEDIATO
     // Nota: OpenCode space-bunny y xKiro reciben null en imagen para ahorrar RAM y evitar timeouts
     const [resGroq, resMistral, resOpencode, resNvidia, resXKiro] = await Promise.allSettled([
       conTiempoLimite(analizarMensajeConGroq(textoLimpio, telemetriaVT, telemetriaHA, imagenBase64), 20000, 'Groq'),
       conTiempoLimite(analizarMensajeConMistral(textoLimpio, telemetriaVT, telemetriaHA, imagenBase64), 20000, 'Mistral'),
       conTiempoLimite(analizarMensajeConOpencode(textoLimpio, telemetriaVT, telemetriaHA, null), 35000, 'OpenCode'),
       conTiempoLimite(analizarMensajeConNvidia(textoLimpio, telemetriaVT, telemetriaHA, imagenBase64), 65000, 'NVIDIA'),
-      conTiempoLimite(analizarMensajeConXKiro(textoLimpio, telemetriaVT, telemetriaHA, null), 30000, 'xKiro MiniMax M3'),
+      conTiempoLimite(analizarMensajeConXKiro(textoLimpio, telemetriaVT, telemetriaHA, null), 30000, 'xKiro Qwen 3.8 Max'),
     ]);
 
     const resultadoGroq = resGroq.status === 'fulfilled' ? resGroq.value : null;
@@ -177,7 +177,7 @@ export async function POST(request) {
         // Motor 2: Mistral AI — Auditoria de seguridad europea
         mistral: resultadoMistral,
 
-        // Motor 3: xKiro — Razonamiento Lógico Profundo (MiniMax M3)
+        // Motor 3: xKiro — Razonamiento Lógico Profundo (Qwen 3.8 Max)
         xkiro: resultadoXKiro,
 
         // Motor 4: OpenCode — Dictamen conciso
