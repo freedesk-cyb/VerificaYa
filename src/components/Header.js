@@ -12,6 +12,7 @@ export default function Header() {
   const navLinks = [
     { href: '/', label: 'Inicio', icon: ShieldCheck },
     { href: '/estafas-comunes', label: 'Estafas Comunes', icon: AlertTriangle },
+    { href: '/blog', label: 'Blog', icon: BookOpen },
     { href: '/nosotros', label: 'Nosotros', icon: Users },
     { href: '/precios', label: 'Donar / Apoyar ❤️', icon: Heart },
   ];

@@ -16,9 +16,28 @@ import {
   Shield
 } from 'lucide-react';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://verificaya.pe';
+
 export const metadata = {
-  title: 'Política de Privacidad y Tratamiento de Datos - VerificaYa Perú',
-  description: 'Política de privacidad integral de VerificaYa. Cumplimiento de la Ley N° 29733 (Perú), subprocesadores de IA, retención de datos y derechos ARCO.',
+  title: 'Política de Privacidad y Cero Almacenamiento | VerificaYa Perú',
+  description: 'Política de privacidad de VerificaYa: cero almacenamiento de mensajes, cumplimiento de la Ley N° 29733 de Perú, derechos ARCO y arquitectura Zero-Logs.',
+  keywords: [
+    'politica privacidad peru',
+    'ley 29733 peru datos personales',
+    'zero logs antifraude',
+    'verificaya privacidad',
+  ],
+  alternates: {
+    canonical: `${siteUrl}/privacidad`,
+  },
+  openGraph: {
+    title: 'Política de Privacidad | VerificaYa Perú',
+    description: 'Cero almacenamiento de datos. Cumplimos la Ley N° 29733 de Protección de Datos Personales del Perú.',
+    url: `${siteUrl}/privacidad`,
+    siteName: 'VerificaYa',
+    locale: 'es_PE',
+    type: 'website',
+  },
 };
 
 export default function PrivacidadPage() {

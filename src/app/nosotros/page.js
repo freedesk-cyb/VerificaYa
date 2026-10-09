@@ -1,9 +1,29 @@
 import Link from 'next/link';
 import { ShieldCheck, Heart, Users, Target, Lock, AlertCircle, ExternalLink, ArrowRight } from 'lucide-react';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://verificaya.pe';
+
 export const metadata = {
-  title: 'Sobre Nosotros - VerificaYa Perú',
-  description: 'Conoce la misión y tecnología detrás de VerificaYa: democratizar la ciberseguridad y proteger a los peruanos del fraude digital.',
+  title: 'Sobre Nosotros — Misión y Tecnología | VerificaYa Perú',
+  description: 'Conoce la misión y tecnología detrás de VerificaYa: democratizar la ciberseguridad y proteger a los peruanos del fraude digital con Inteligencia Artificial, sin almacenar datos.',
+  keywords: [
+    'verificaya nosotros',
+    'antifraude peru mision',
+    'ciberseguridad peru ia',
+    'proteccion ciudadana peru estafas',
+    'zero logs privacidad peru'
+  ],
+  alternates: {
+    canonical: `${siteUrl}/nosotros`,
+  },
+  openGraph: {
+    title: 'Sobre Nosotros — Misión y Tecnología | VerificaYa Perú',
+    description: 'Conoce la misión y tecnología detrás de VerificaYa: IA al servicio del ciudadano para frenar las estafas digitales en Perú.',
+    url: `${siteUrl}/nosotros`,
+    siteName: 'VerificaYa',
+    locale: 'es_PE',
+    type: 'website',
+  },
 };
 
 export default function NosotrosPage() {
